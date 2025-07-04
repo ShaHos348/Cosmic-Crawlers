@@ -8,7 +8,6 @@
     tools:context=".views.GameActivity">
 
 
-
     <View
         android:id="@+id/gameView"
         android:layout_width="0dp"
@@ -66,12 +65,12 @@
         android:id="@+id/scoreDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/score"
         android:textColor="@color/red"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -95,71 +94,59 @@
 
     <Button
         android:id="@+id/attack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="71dp"
+        android:alpha="0.5"
         android:text="Attack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.941"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9"
-        android:alpha="0.5"/>
+        app:layout_constraintVertical_bias="0.882" />
 
     <ImageButton
         android:id="@+id/upArrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.124"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.825"
-        app:srcCompat="@android:drawable/arrow_up_float"
-        android:alpha="0.5"/>
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:alpha="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/downArrow"
+        app:layout_constraintEnd_toEndOf="@+id/downArrow"
+        app:layout_constraintStart_toStartOf="@+id/downArrow"
+        app:srcCompat="@android:drawable/arrow_up_float" />
 
     <ImageButton
         android:id="@+id/downArrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/rightArrow"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/leftArrow"
-        app:layout_constraintTop_toBottomOf="@+id/upArrow"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/arrow_down_float"
-        android:alpha="0.5"/>
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:alpha="0.5"
+        android:rotationX="180"
+        app:layout_constraintBottom_toBottomOf="@+id/gameView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintStart_toStartOf="@+id/gameView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.883"
+        app:srcCompat="@android:drawable/arrow_up_float" />
 
     <ImageButton
         android:id="@+id/rightArrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:alpha="0.5"
         android:rotation="-90"
-        app:layout_constraintBottom_toBottomOf="@+id/upArrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/upArrow"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@android:drawable/arrow_down_float"
-        android:alpha="0.5"/>
+        app:layout_constraintStart_toEndOf="@+id/downArrow"
+        app:layout_constraintTop_toTopOf="@+id/downArrow"
+        app:srcCompat="@android:drawable/arrow_down_float" />
 
     <ImageButton
         android:id="@+id/leftArrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:alpha="0.5"
         android:rotation="-90"
-        app:layout_constraintBottom_toBottomOf="@+id/upArrow"
-        app:layout_constraintEnd_toStartOf="@+id/upArrow"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@android:drawable/arrow_up_float"
-        android:alpha="0.5"/>
+        app:layout_constraintEnd_toStartOf="@+id/downArrow"
+        app:layout_constraintTop_toTopOf="@+id/downArrow"
+        app:srcCompat="@android:drawable/arrow_up_float" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

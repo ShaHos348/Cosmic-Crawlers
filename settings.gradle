@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CS2340A_Team31"
+rootProject.name = "Cosmic Crawlers"
 include ':app'

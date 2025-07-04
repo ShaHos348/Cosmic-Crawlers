@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -28,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import android.util.SparseArray;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -66,7 +69,9 @@ public class GameActivity extends AppCompatActivity {
         R.drawable.astrokitty_pinkleft2, R.drawable.astrokitty_pinkleft3};
 
     private int currentFrameIndex = 0;
-    private Handler handler;
+    private Handler handler = new Handler();
+    private final SparseArray<Runnable> holdRunnables = new SparseArray<>();
+    private final SparseArray<Boolean> isHoldingMap = new SparseArray<>();
     private final int frameDelay = 200;
     private boolean isAnimating = false; // To keep track of animation status
     private boolean isMovingRight = false;
@@ -202,6 +207,11 @@ public class GameActivity extends AppCompatActivity {
             KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_RIGHT);
             onKeyDown(KeyEvent.KEYCODE_DPAD_RIGHT, event);
         });
+
+        setHoldableButton(findViewById(R.id.upArrow), KeyEvent.KEYCODE_DPAD_UP);
+        setHoldableButton(findViewById(R.id.downArrow), KeyEvent.KEYCODE_DPAD_DOWN);
+        setHoldableButton(findViewById(R.id.leftArrow), KeyEvent.KEYCODE_DPAD_LEFT);
+        setHoldableButton(findViewById(R.id.rightArrow), KeyEvent.KEYCODE_DPAD_RIGHT);
 
         weaponView.bringToFront();
         attack.bringToFront();
@@ -771,5 +781,38 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
+
+    private void setHoldableButton(View button, int keyCode) {
+        button.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    if (isHoldingMap.get(keyCode, false)) break;
+                    isHoldingMap.put(keyCode, true);
+                    Runnable holdRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            if (isHoldingMap.get(keyCode)) {
+                                onKeyDown(keyCode, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode));
+                                handler.postDelayed(this, 100); // adjust speed as needed
+                            }
+                        }
+                    };
+                    holdRunnables.put(keyCode, holdRunnable);
+                    handler.post(holdRunnable);
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    isHoldingMap.put(keyCode, false);
+                    Runnable toRemove = holdRunnables.get(keyCode);
+                    if (toRemove != null) {
+                        handler.removeCallbacks(toRemove);
+                    }
+                    break;
+            }
+            return true;
+        });
+    }
+
 }
 
